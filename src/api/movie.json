@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "title": "Slumberland",
+    "image": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQBbmCfZD28erkQBEdHlLxWLyHrFhZxyUgBEdWFctR1cvL0BNGL"
+  },
+  {
+    "id": 2,
+    "title": "AVATAR: THE WAY OF WATER",
+    "image": "https://cdn.cgv.id/uploads/movie/compressed/22032300.jpg"
+  },
+  {
+    "id": 3,
+    "title": "Creed III",
+    "image": "https://dx35vtwkllhj9.cloudfront.net/united-artists-releasing/creed-iii/images/regions/us/onesheet.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Evil Dead Rise",
+    "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSdWx1ZLk4lVoAlfDQiqkJdcfdKcOYy6fLxz2nR7UIRXmIK5Tnh"
+  },
+  {
+    "id": 5,
+    "title": "Shazam! Fury of the Gods",
+    "image": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRxmyenlivieX0mD_g8x1nlUupzdzaR_7kT2cL75FjzHtIvlnD-"
+  }
+]
