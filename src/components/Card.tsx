@@ -2,21 +2,20 @@ import React, { Component } from "react";
 
 
 interface CardProps {
-  id: string;
   title: string;
   image: string;
 }
 
 class Card extends Component<CardProps> {
   render() {
-    const { id, title, image } = this.props;
+    const {  title, image } = this.props;
 
     return (
-      <div id={id} className="card-compact card bg-transparent shadow-lg-sm shadow-black ">
+      <div className="card-compact card bg-transparent shadow-lg-sm shadow-black ">
         <figure>
           <img
             className="aspect-auto object-contain"
-            src={image}
+            src={`https://image.tmdb.org/t/p/w500${image}`}
             alt="Movies"
           />
         </figure>
