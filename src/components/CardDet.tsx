@@ -2,14 +2,15 @@ import React, {FC} from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from './Button';
 
-interface CardProps {
+interface CardDetProps {
   id?: number;
   title?: string;
   image?: string;
   labelButton?: string;
 }
 
-const Card: FC<CardProps> = ({id, title, image, labelButton}) => {
+const CardDet: FC<CardDetProps> = ({ id, title, image, labelButton}) => {
+
   const navigate = useNavigate();
 
   function onCLickDetail() {
@@ -29,9 +30,15 @@ const Card: FC<CardProps> = ({id, title, image, labelButton}) => {
           <p className="card-title text-black"
           onClick={() => onCLickDetail()}
           >{title}</p>
+          <div className="card-actions">
+            <Button
+              className="btn bg-black p-2 font-bold text-white"
+              label={labelButton}
+            />
+          </div>
         </div>
       </div>
   )
 }
 
-export default Card;
+export default CardDet
