@@ -13,11 +13,11 @@ import { MovieType, VideoType } from "../types/movie";
 import axios from "axios";
 
 const Details = () => {
-  const { id_movie } = useParams();
-  const [data, setData] = useState<MovieType>({});
+  const { id_movie } = useParams<{id_movie: string}>();
+  const [data, setData] = useState<MovieType | null>(null);
   const [similar, setSimilar] = useState<MovieType[]>([]);
   const [videos, setVideos] = useState<VideoType[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     fetchData();
@@ -34,10 +34,12 @@ const Details = () => {
       .then((response) => {
         const data = response.data;
         setData(data);
-        setVideos(data.videos?.results);
+        setVideos(data.videos?.results ?? []);
+        setLoading(false);
       })
       .catch((error) => {
         console.error(error);
+        setLoading(false);
       });
   }
 
@@ -56,6 +58,10 @@ const Details = () => {
       });
   }
 
+  if (loading) {
+    return <SkeletonLoading />;
+  }
+
   return (
     <Layout>
       {loading ? (
@@ -65,7 +71,7 @@ const Details = () => {
           <div
             className=" w-full h-[65vh] bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `url("https://image.tmdb.org/t/p/original${data.backdrop_path}")`,
+              backgroundImage: `url("https://image.tmdb.org/t/p/original${data?.backdrop_path}")`,
             }}
           >
             <div className="flex h-full w-full flex-wrap items-start justify-start from-white p-6 dark:from-black">
@@ -73,24 +79,24 @@ const Details = () => {
                 <div className="card-body justify-between">
                   <div className="flex flex-col">
                     <p className="text-start text-3xl font-bold text-black dark:text-white">
-                      {data.title}
+                      {data?.title}
                     </p>
                     <p className="text-lg font-medium text-black dark:text-white">
-                      Runtime: {data.runtime} minutes
+                      Runtime: {data?.runtime} minutes
                     </p>
                     <p className="text-lg font-medium text-black dark:text-white">
-                      Release Date: {data.release_date}
+                      Release Date: {data?.release_date}
                     </p>
                     <p className="text-lg font-medium text-black dark:text-white">
                       Genre:{" "}
-                      {data.genres
+                      {data?.genres
                         ?.map((genre) => {
                           return genre.name;
                         })
                         .join(", ")}
                     </p>
                     <p className="text-lg font-medium text-black dark:text-white">
-                      Overview: {data.overview}
+                      Overview: {data?.overview}
                     </p>
                   </div>
                   <div>
@@ -118,7 +124,7 @@ const Details = () => {
               )}
             />
           </div>
-          <div className="flex flex-col container">
+          <div className="flex flex-col">
             <h1 className="my-5 text-center text-5xl text-black">Similar</h1>
             <div className="m-2 grid grid-flow-row auto-rows-max grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5">
                 {similar.map((datas: MovieType) => (

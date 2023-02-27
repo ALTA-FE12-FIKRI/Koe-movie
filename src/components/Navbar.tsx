@@ -2,7 +2,7 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <div className="navbar sticky top-0 z-50 border-gray-200 bg-base-100">
+    <div className="navbar sticky top-0 z-50 border-gray-200 bg-[#393E46]">
       <div className="flex-1">
         <a className="btn btn-ghost normal-case text-xl">KOE MOVIES</a>
       </div>

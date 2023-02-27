@@ -40,15 +40,15 @@ const Hero: FC<CarouselProps> = ({ datas, content }) => {
   };
 
   useEffect(() => {
-    if (carousel !== null && carousel.current !== null) {
+    if (carousel.current !== null) {
       carousel.current.scrollLeft = carousel.current.offsetWidth * currentIndex;
     }
   }, [currentIndex]);
 
   useEffect(() => {
-    maxScrollWidth.current = carousel.current
-      ? carousel.current.scrollWidth - carousel.current.offsetWidth
-      : 0;
+    if (carousel.current !== null) {
+      maxScrollWidth.current = carousel.current.scrollWidth - carousel.current.offsetWidth;
+    }
   }, []);
 
   return (
@@ -103,7 +103,7 @@ const Hero: FC<CarouselProps> = ({ datas, content }) => {
             <div
               id={index.toString()}
               key={index}
-              className="carousel-item relative w-full h-full"
+              className="carousel-item relative w-[100%] h-[100%]"
             >
               {content(data)}
             </div>

@@ -7,35 +7,34 @@ interface CardDetProps {
   title?: string;
   image?: string;
   labelButton?: string;
+  overview?: string;
 }
 
-const CardDet: FC<CardDetProps> = ({ id, title, image, labelButton}) => {
+const CardDet: FC<CardDetProps> = ({ id, title, image, labelButton, overview}) => {
 
   const navigate = useNavigate();
 
-  function onCLickDetail() {
+  const onCLickDetail = () => {
     navigate(`/movie/${id}`);
   };
 
   return (
-    <div key={id} className="card-compact card bg-transparent shadow-lg-sm shadow-black ">
-        <figure onClick={() => onCLickDetail()}>
+    <div key={id} className="card-compact card bg-transparent shadow-lg-sm shadow-black transform transition duration-500 hover:z-20 hover:scale-110">
+        <figure onClick={onCLickDetail}>
          <img
             className="aspect-auto object-contain"
-            src={`https://image.tmdb.org/t/p/w500${image}`}
+            src={`https://image.tmdb.org/t/p/original${image}`}
             alt="Movies"
           />
         </figure>
         <div className="card-body items-center justify-between text-center">
           <p className="card-title text-black"
-          onClick={() => onCLickDetail()}
+          onClick={onCLickDetail}
           >{title}</p>
-          <div className="card-actions">
             <Button
-              className="btn bg-black p-2 font-bold text-white"
+              className="btn bg-black p-4 font-bold text-white"
               label={labelButton}
             />
-          </div>
         </div>
       </div>
   )

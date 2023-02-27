@@ -8,58 +8,58 @@ interface CarouselProps {
 
 const Carousel: FC<CarouselProps> = ({datas, content}) => {
 
-    const maxScrollWidth = useRef(0);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const carousel = useRef<HTMLDivElement>(null);
-  
-    const movePrev = () => {
-      if (currentIndex > 0) {
-        setCurrentIndex((prevState) => prevState - 1);
-      }
-    };
-  
-    const moveNext = () => {
-      if (
-        carousel.current !== null &&
-        carousel.current.offsetWidth * currentIndex <= maxScrollWidth.current
-      ) {
-        setCurrentIndex((prevState) => prevState + 1);
-      }
-    };
-  
-    const isDisabled = (direction: string) => {
-      if (direction === "prev") {
-        return currentIndex <= 0;
-      }
-  
-      if (direction === "next" && carousel.current !== null) {
-        return (
-          carousel.current.offsetWidth * currentIndex >= maxScrollWidth.current
-        );
-      }
-  
-      return false;
-    };
-  
-    useEffect(() => {
-      if (carousel !== null && carousel.current !== null) {
-        carousel.current.scrollLeft = carousel.current.offsetWidth * currentIndex;
-      }
-    }, [currentIndex]);
-  
-    useEffect(() => {
-      maxScrollWidth.current = carousel.current
-        ? carousel.current.scrollWidth - carousel.current.offsetWidth
-        : 0;
-    }, []);
+  const maxScrollWidth = useRef(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const carousel = useRef<HTMLDivElement>(null);
+
+  const movePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prevState) => prevState - 1);
+    }
+  };
+
+  const moveNext = () => {
+    if (
+      carousel.current !== null &&
+      carousel.current.offsetWidth * currentIndex <= maxScrollWidth.current
+    ) {
+      setCurrentIndex((prevState) => prevState + 1);
+    }
+  };
+
+  const isDisabled = (direction: string) => {
+    if (direction === "prev") {
+      return currentIndex <= 0;
+    }
+
+    if (direction === "next" && carousel.current !== null) {
+      return (
+        carousel.current.offsetWidth * currentIndex >= maxScrollWidth.current
+      );
+    }
+
+    return false;
+  };
+
+  useEffect(() => {
+    if (carousel.current !== null) {
+      carousel.current.scrollLeft = carousel.current.offsetWidth * currentIndex;
+    }
+  }, [currentIndex]);
+
+  useEffect(() => {
+    if (carousel.current !== null) {
+      maxScrollWidth.current = carousel.current.scrollWidth - carousel.current.offsetWidth;
+    }
+  }, []);
 
   return (
-    <div className="h-96 w-full ">
+    <div className="h-full w-full  ">
     <div className="relative h-full w-full overflow-hidden">
       <div className="top left absolute flex h-full w-full justify-between">
         <button
           id="carousel-prev"
-          className="z-10 m-0 h-full w-10 p-0 text-center text-white opacity-75 transition-all duration-300 ease-in-out hover:bg-white/30 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-25 dark:hover:bg-black/30"
+          className="z-30 m-0 h-full w-10 p-0 text-center text-white opacity-75 transition-all duration-300 ease-in-out hover:bg-white/30 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-25 dark:hover:bg-black/30"
           onClick={movePrev}
           disabled={isDisabled("prev")}
         >
@@ -80,7 +80,7 @@ const Carousel: FC<CarouselProps> = ({datas, content}) => {
         </button>
         <button
           id="carousel-next"
-          className="z-10 m-0 h-full w-10 p-0 text-center text-white opacity-75 transition-all duration-300 ease-in-out hover:bg-white/30 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-25 dark:hover:bg-black/30"
+          className="z-30 m-0 h-full w-10 p-0 text-center text-white opacity-75 transition-all duration-300 ease-in-out hover:bg-white/30 hover:opacity-100 disabled:cursor-not-allowed disabled:opacity-25 dark:hover:bg-black/30"
           onClick={moveNext}
           disabled={isDisabled("next")}
         >
@@ -100,12 +100,12 @@ const Carousel: FC<CarouselProps> = ({datas, content}) => {
           </svg>
         </button>
       </div>
-      <div className="carousel w-full h-full gap-2 space-x-3" ref={carousel}>
+      <div className="carousel w-full h-full gap-3 space-x-3" ref={carousel}>
         {datas.map((data, index) => (
           <div
           id={index.toString()}
           key={index}
-            className="carousel-item relative w-[20vh] h-[40vh]"
+            className="carousel-item relative w-[22vh] h-[44vh]"
           >
             {content(data)}
           </div>
