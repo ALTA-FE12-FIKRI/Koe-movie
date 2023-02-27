@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 import Home from "../pages/Index"
 import Details from '../pages/Details';
+import Favorite from "../pages/Favorite";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/movie/:id_movie" element={<Details/>} />
+        <Route path="/favorite" element={<Favorite/>} />
       </Routes>
       </BrowserRouter>
     </CookiesProvider>

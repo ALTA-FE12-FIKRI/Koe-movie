@@ -8,9 +8,10 @@ interface CardDetProps {
   image?: string;
   labelButton?: string;
   overview?: string;
+  onClickFav?: React.MouseEventHandler;
 }
 
-const CardDet: FC<CardDetProps> = ({ id, title, image, labelButton, overview}) => {
+const CardDet: FC<CardDetProps> = ({ id, title, image, labelButton, onClickFav}) => {
 
   const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ const CardDet: FC<CardDetProps> = ({ id, title, image, labelButton, overview}) =
   };
 
   return (
-    <div key={id} className="card-compact card bg-transparent shadow-lg-sm shadow-black transform transition duration-500 hover:z-20 hover:scale-110">
+    <div key={id} className="card-compact card bg-transparent shadow-lg-sm shadow-black transform transition duration-500 hover:z-20 hover:scale-110 overflow-hidden">
         <figure onClick={onCLickDetail}>
          <img
             className="aspect-auto object-contain"
@@ -34,6 +35,7 @@ const CardDet: FC<CardDetProps> = ({ id, title, image, labelButton, overview}) =
             <Button
               className="btn bg-black p-4 font-bold text-white"
               label={labelButton}
+              onClick={onClickFav}
             />
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -33,8 +34,13 @@ const Navbar = () => {
               <a className="justify-between">Light</a>
             </li>
             <li>
-              <a>Favorite</a>
-            </li>
+            <Link
+              to="/favorite"
+              className=" btn bg-zinc-500 p-2 font-bold text-white hover: bg-zinc-400/90 dark:bg-zinc-800 dark:hover:bg-zinc-700/90"
+            >
+              Favorite
+            </Link>
+          </li>
             <li>
               <a>login</a>
             </li>
