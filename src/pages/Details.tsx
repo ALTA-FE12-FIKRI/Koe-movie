@@ -1,22 +1,27 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { addFavorite, FavState, Item } from "../utils/redux/reducers/favSlice";
 
 import SkeletonLoading from "../components/Loading";
 import Hero from "../components/Hero";
 import Layout from "../components/Layout";
 import Button from "../components/Button";
-import CardDet from "../components/CardDet";
+import Card from "../components/Card";
 import "../styles/index.css";
 
 import { MovieType, VideoType } from "../types/movie";
 import axios from "axios";
 
-import { FavContext } from "../utils/context/favContext";
+import { BsBookmarkCheck } from "react-icons/bs";
 
 const Details = () => {
-  const { id_movie } = useParams<{ id_movie: string }>();
-  const favContext = useContext(FavContext);
+  const { id_movie } = useParams();
+  const dispatch = useDispatch();
+  const favorite = useSelector(
+    (state: { favorite: FavState }) => state.favorite
+  );
   const [data, setData] = useState<MovieType | null>(null);
   const [similar, setSimilar] = useState<MovieType[]>([]);
   const [videos, setVideos] = useState<VideoType[]>([]);
@@ -61,16 +66,14 @@ const Details = () => {
       });
   }
 
-  if (loading) {
-    return <SkeletonLoading />;
+  function handleAddToFavorite(item: any) {
+    const newItem: Item = {
+      id: item.id,
+      title: item.title,
+      poster_path: item.poster_path,
+    };
+    dispatch(addFavorite(newItem));
   }
-
-  const handleFavorites = () => {
-    if (favContext?.addFavorite && data) {
-      favContext.addFavorite(data);
-    } 
-  }
-
   return (
     <Layout>
       {loading ? (
@@ -90,8 +93,8 @@ const Details = () => {
                     <p className="text-start text-3xl font-bold text-black dark:text-white">
                       {data?.title}
                     </p>
-                    <p className="text-lg font-medium text-black dark:text-white">
-                      Runtime: {data?.runtime} minutes
+                    <p className="text-start text-3xl font-bold text-black dark:text-white">
+                      {data?.title}
                     </p>
                     <p className="text-lg font-medium text-black dark:text-white">
                       Release Date: {data?.release_date}
@@ -109,12 +112,9 @@ const Details = () => {
                     </p>
                   </div>
                   <div>
-                    <Button
-                      className="btn bg-zinc-500 p-2 font-bold text-white hover:bg-zinc-400/90 dark:bg-zinc-800/90 dark:hover:bg-zinc-700/90"
-                      label="ADD FAVORITE"
-                      onClickFav={handleFavorites}
-                      
-                    />
+                    <button className="btn bg-transparent p-2 font-bold text-white w-[70px]" onClick={() => handleAddToFavorite(data)}>
+                      <BsBookmarkCheck size={25} />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -139,13 +139,12 @@ const Details = () => {
             <h1 className="my-5 text-center text-5xl text-black">Similar</h1>
             <div className="m-2 grid grid-flow-row auto-rows-max grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5">
               {similar.map((datas: MovieType) => (
-                <CardDet
+                <Card
                   id={datas.id}
                   key={datas.id}
                   title={datas.title}
                   image={datas.poster_path}
                   labelButton="ADD FAVORITE"
-                  onClickFav={handleFavorites}
                 />
               ))}
             </div>

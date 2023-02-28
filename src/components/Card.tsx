@@ -7,10 +7,9 @@ interface CardProps {
   title?: string;
   image?: string;
   labelButton?: string;
-  overview?: string;
 }
 
-const Card: FC<CardProps> = ({ id, title, image, labelButton, overview }) => {
+const Card: FC<CardProps> = ({ id, title, image }) => {
   const navigate = useNavigate();
 
   const onCLickDetail = () => {
@@ -20,7 +19,7 @@ const Card: FC<CardProps> = ({ id, title, image, labelButton, overview }) => {
   return (
     <div
       key={id}
-      className="card-compact card bg-transparent shadow-lg-sm shadow-black transform transition duration-500 hover:z-20 hover:scale-110"
+      className="card-compact card bg-transparent dark:bg-zinc-700 shadow-lg-sm shadow-black transform transition duration-500 hover:z-20 hover:scale-90"
     >
       <figure onClick={onCLickDetail}>
         <img
@@ -32,9 +31,6 @@ const Card: FC<CardProps> = ({ id, title, image, labelButton, overview }) => {
       <div className="card-body items-center justify-between text-center">
         <p className="card-title text-black" onClick={onCLickDetail}>
           {title}
-        </p>
-        <p className="card-title text-black" onClick={onCLickDetail}>
-          {overview}
         </p>
       </div>
     </div>

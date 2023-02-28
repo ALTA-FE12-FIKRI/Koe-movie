@@ -1,36 +1,40 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { FavState, removeFavorite } from '../utils/redux/reducers/favSlice';
 import Layout from '../components/Layout';
 import CardDet from '../components/CardDet';
-import { FavContext } from '../utils/context/favContext';
 
 const Favorite = () => {
-  const { favItems, removeFavorite } = useContext(FavContext);
 
-  if (!favItems) {
-    return <div>Loading...</div>;
+  const dispatch = useDispatch();
+  const myFav = useSelector((state: { favorite: FavState }) => state.favorite);
+
+  function handleRemoveFromFavorite(id: number) {
+    dispatch(removeFavorite(id));
   }
-
 
   return (
     <Layout>
       <div>
-        <h1 className='my-10 text-center text-5xl text-salte-900 text-black dark:text-white'>
-          Favorit Kamu
-        </h1>
-        <div className="m-2 grid grid-flow-row auto-rows-max grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-4">
-          {favItems.map((item) => {
-            return (
-              <CardDet 
-                id={item.id}
+        <h2 className="my-10 text-center text-5xl text-salte-900 text-black">Favorites</h2>
+        {myFav.items.length > 0 ? (
+          <div className="m-2 grid grid-flow-row auto-rows-max grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-4">
+            {myFav.items.map((item) => (
+              <CardDet
                 key={item.id}
+                id={item.id}
                 title={item.title}
                 image={item.poster_path}
-                onClickFav={() => removeFavorite(item.id)}
-                labelButton="Remove Favorite"
-              />
-            );
-          })}
-        </div>
+                onClickFav={() => handleRemoveFromFavorite(item.id)} 
+                labelButton="Remove from Favorite"
+                />
+            ))}
+          </div>
+        ) : (
+          <p className="text-lg font-medium text-gray-500">
+            You haven't added any favorite movies yet.
+          </p>
+        )}
       </div>
     </Layout>
   );

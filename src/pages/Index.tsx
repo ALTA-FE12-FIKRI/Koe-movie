@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import SkeletonLoading from "../components/Loading";
 import Layout from "../components/Layout";
@@ -9,12 +10,14 @@ import Card from "../components/Card";
 import Hero from "../components/Hero";
 import Carousel from "../components/Carousel";
 
+import { addFavorite } from "../utils/redux/reducers/favSlice";
 import { MovieType } from "../types/movie";
 import axios from "axios";
 import Button from "../components/Button";
 
 const Home = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [playing, setPlaying] = useState<MovieType[]>([]);
   const [coming, setComing] = useState<MovieType[]>([]);
   const [popular, setPopular] = useState<MovieType[]>([]);
@@ -91,6 +94,10 @@ const Home = () => {
       });
   }
 
+  const handleAddFavorite = (item: any) => {
+    dispatch(addFavorite(item));
+  }
+
   return (
     <Layout>
       <div className="container flex flex-col">
@@ -132,8 +139,10 @@ const Home = () => {
                 <CardDet
                   id={coming.id}
                   key={coming.id}
+                  title={coming.title}
                   image={coming.poster_path}
                   labelButton="SEE Details"
+                  onClickFav={() => handleAddFavorite}
                 />
               )}
             />
